@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		a {
+			display:block;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">	
+		<p>
+			<a href="" v-for='anchor in anchors' v-bind:href='anchor' v-text='anchor'></a>
+		</p>
+	</div>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+			
+		var app = new Vue({
+
+		el: "#app",
+		data: {
+			anchors: [
+				'https://google.is',
+				'http://visir.is',
+				'http://fotbolti.net',
+				'https://facebook.com'
+				]
+			}
+		});
+
+	</script>
+</body>
+</html>
