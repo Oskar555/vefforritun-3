@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event</title>
+</head>
+<body>
+
+	<div id="root">
+			
+		<p>{{ counter }}</p>
+		<button v-if="counter !== 10" @click="incrementCounter">hækka um einn</button>
+		<button v-if="counter !== -10" @click="minnkaCounter">lækka um einn</button>
+
+	</div>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		
+	var app = new Vue({
+
+		el: '#root',
+		data: {
+
+			counter: 0
+
+		},
+		methods: {
+			incrementCounter: function() {
+				if (this.counter !== 10) {
+				this.counter +=1;	
+				}
+
+				},
+			minnkaCounter: function() {
+				if (this.counter !== -10) {
+				this.counter -=1
+					
+				}
+				}
+			}
+
+	});
+	</script>
+
+</body>
+</html>
