@@ -11,9 +11,10 @@
 </head>
 <body>
 	<div id="app">	
-		<p>
-			<a href="" v-for='anchor in anchors' v-bind:href='anchor' v-text='anchor'></a>
-		</p>
+		
+		<a v-for='anchor in anchors' v-bind:href='anchor' v-text='anchor.anchor' @click.prevent='handleClick(anchor.anchor)'></a>
+		
+		<p>virkur linkur er: {{ activeLink }}</p>
 	</div>
 
 	<script src="https://unpkg.com/vue"></script>
@@ -24,11 +25,18 @@
 		el: "#app",
 		data: {
 			anchors: [
-				'https://google.is',
-				'http://visir.is',
-				'http://fotbolti.net',
-				'https://facebook.com'
-				]
+				{ anchor: 'https://google.is'},
+				{ anchor:'http://visir.is'},
+				{ anchor:'http://fotbolti.net'},
+				{ anchor:'https://facebook.com'}
+				],
+				activeLink: ''
+			},
+			methods: {
+				handleClick: function(anchor){
+					this.activeLink = anchor
+				},
+
 			}
 		});
 
