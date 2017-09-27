@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="heimaverkefni 2.css">
+</head>
+<body>
+	<div class="container" id="todo">
+		
+	<section class="panel">
+		
+		<input type="checkbox" id="mark-all" v-bind:checked="areAllSelected" v-on:click="selectAll">
+		<input type="text" placeholder="What do you need to do?" autofocus class="text-input" v-model="newTask" v-on:keyup.enter="addTask">
+
+		<button v-on:click="clearList">Hreynsa úr lista</button>
+
+	</section>
+
+	<ul class="list">
+		<li v-for="task in taskList" v-bind:class="{done: task.checked}">
+		
+			<input type="checkbox" class="checkbox" v-model="task.checked">
+
+			<label for="checkbox">{{ task.text }}</label>
+
+			<button class="delete" v-on:click="removeTask(task)">X</button>
+		</li>
+	</ul>
+
+	<pre>{{ $data }}</pre>
+
+	</div>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+	<script type="text/javascript">
+			
+		var app = new Vue({
+
+		el: "#todo",
+		data: {
+				newTask: "",
+				taskList: []	
+			},
+			methods: {
+				//þetta addar hlutum í lista
+				addTask: function(){
+					var task = this.newTask.trim();
+					if(task){
+						this.taskList.push({
+							text: task,
+							checked: false
+						});
+						this.newTask = "";
+					}
+				},
+				//lætur X takkan virka
+				removeTask: function(task){
+					var index = this.taskList.indexOf(task);
+					this.taskList.splice(index, 1);
+				},
+				//lætur stóra hreynsta takkan virka
+				clearList: function() {
+					this.taskList = [];
+				},
+				//velur öll taskinn og merkir við þau
+				selectAll: function(task){
+					var targetValue = this.areAllSelected ? false : true;
+					for(var i = 0; i < this.taskList.length; i++){
+						this.taskList[i].checked = targetValue;
+					}
+				}
+			},
+			computed: {
+				//þetta tjekkar hvort öll verkefnin eru hökuð við
+				areAllSelected: function(){
+					return this.taskList.every(function(task){
+						return task.checked;
+					}) && this.taskList.length > 0;
+				}
+			}
+		});
+
+	</script>
+</body>
+</html>
